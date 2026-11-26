@@ -6,8 +6,17 @@ Mã chính của gói trang trí (giao diện kính, dòng chữ chạy, 3 nút 
   `https://cdn.jsdelivr.net/gh/KCT-GH-MAN/dgs-webcon@main/dgs.js`
 - `gtm-tag.html`: mẫu thẻ HTML tùy chỉnh dán vào Google Tag Manager của từng web. Gồm khối cấu hình `window.DGS_CFG` (riêng của mỗi khách) và một dòng tải `dgs.js`.
 
+## Khóa theo tên miền
+
+Gói chỉ chạy trên các tên miền có trong danh sách `DGS_ALLOW` ở đầu `dgs.js`. Web khác dán mã vào sẽ không hiện gì (chỉ có dòng cảnh báo `[DGS]` trong console).
+
+- Thêm khách: thêm một dòng tên miền (không có `https://`, không có `www.`), ví dụ `'shop.abc.vn'`, nhớ dấu phẩy giữa các dòng.
+- Khách ngừng bảo trì: xoá dòng đó.
+- Sau khi sửa: commit lên `main` rồi xoá bộ nhớ đệm jsDelivr (xem mục Cập nhật).
+
 ## Cài cho một web mới
 
+0. Thêm tên miền của khách vào `DGS_ALLOW` (mục trên).
 1. Mở Google Tag Manager của web, tạo thẻ **HTML tùy chỉnh**, kích hoạt **All Pages**.
 2. Dán nội dung `gtm-tag.html`, sửa khối cấu hình (SĐT, Zalo, Facebook, Page, câu chữ, `theme`).
 3. Lưu, Gửi, Xuất bản.
