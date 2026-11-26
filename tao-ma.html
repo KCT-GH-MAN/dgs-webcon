@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tạo mã trang trí web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: hướng dẫn tận tay, gọn gàng như một quầy dịch vụ
+   IDEA: tờ phiếu đăng ký — điền bên trái, mã điền sẵn hiện ngay bên phải
+   PICTURE: khối mã sống + mô phỏng 3 nút góc phải và dòng chữ chạy theo dữ liệu đang gõ
+   COLOUR and TYPE: trắng, mực đen, cam đỏ của gói (#ff3d3d → #ff8a00); Be Vietnam Pro
+   LAYOUT: 2 cột trên máy tính (phiếu | mã + mô phỏng), xếp dọc trên điện thoại */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121212);--ink:light-dark(#141414,#f2f2f2);--mut:light-dark(#5b6170,#a7adba);--line:light-dark(#e6e8ee,#2c2f36);--card:light-dark(#f6f7f9,#1b1d22);--acc:#ff4a1c;--grad:linear-gradient(135deg,#ff3d3d,#ff8a00)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Be Vietnam Pro",system-ui,sans-serif;overflow-x:clip}
+.top{background:var(--grad);color:#fff;padding:clamp(24px,4vw,44px) max(5vw,16px)}
+.top h1{margin:0;font-size:clamp(28px,4vw,44px);line-height:1.05;font-weight:800;text-wrap:balance}
+.top p{margin:10px 0 0;max-width:62ch;opacity:.95}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);padding:clamp(20px,3vw,40px) max(5vw,16px);max-width:1240px;margin:0 auto}
+@media(max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}}
+fieldset{border:0;margin:0 0 18px;padding:0}
+legend{font-weight:800;font-size:18px;margin-bottom:8px}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+.hint{font-weight:400;color:var(--mut);font-size:13px}
+input,textarea,select{width:100%;font:16px/1.4 inherit;font-family:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);min-height:44px}
+textarea{min-height:76px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:3px solid rgba(255,74,28,.35);border-color:var(--acc)}
+.chk{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chk label{display:flex;align-items:center;gap:6px;margin:0;font-weight:400;font-size:14px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;cursor:pointer;min-height:40px}
+.chk input{width:auto;min-height:0}
+.side{position:relative}
+@media(min-width:861px){.side .stick{position:sticky;top:16px}}
+.sim{position:relative;height:230px;border-radius:18px;background:var(--card);border:1px solid var(--line);overflow:hidden;margin-bottom:16px}
+.sim .tick{position:absolute;left:0;right:0;top:0;height:38px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;overflow:hidden;font-size:13px;white-space:nowrap}
+.sim .run{display:inline-block;padding-left:100%;animation:run 18s linear infinite}
+.sim .run b{color:#b91c1c}
+@keyframes run{to{transform:translateX(-100%)}}
+.sim .btns{position:absolute;right:16px;bottom:16px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.sim .b{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.sim .bell{background:#fff;border:1px solid #fecaca;font-size:18px}
+.sim .zl{background:#0068ff}.sim .fb{background:#1877f2;font-size:20px}
+.sim .tip{position:absolute;left:18px;top:62px;max-width:58%;background:var(--grad);color:#fff;font-size:13px;font-weight:600;padding:10px 12px;border-radius:14px;box-shadow:0 10px 24px rgba(255,61,61,.35)}
+.sim .tet{background:linear-gradient(135deg,#d7141a,#f2a900)}
+.sim .note{position:absolute;left:18px;bottom:14px;font-size:12px;color:var(--mut)}
+.code{border-radius:18px;background:#14161b;color:#e8ebf2;overflow:hidden}
+.code .bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:#1e2128}
+.code .bar span{font-size:13px;color:#aab0bd}
+button{font:600 15px/1 inherit;font-family:inherit;border:0;border-radius:999px;padding:12px 18px;min-height:44px;cursor:pointer;background:var(--grad);color:#fff}
+button:focus-visible{outline:3px solid #ffd3c4}
+pre{margin:0;padding:14px;max-height:420px;overflow:auto;font:12.5px/1.55 ui-monospace,Consolas,monospace;white-space:pre}
+.steps{margin:18px 0 0;padding-left:20px;color:var(--ink)}
+.steps li{margin:6px 0}
+.small{font-size:13px;color:var(--mut)}
+@media (prefers-reduced-motion:reduce){.sim .run{animation:none;padding-left:0}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Tạo mã gói trang trí web con</h1>
+  <p>Điền thông tin của web bên dưới. Mã cài đặt ở cột bên phải tự cập nhật theo từng chữ anh/chị gõ, bấm Sao chép rồi dán vào Google Tag Manager là xong.</p>
+</header>
+<main class="wrap">
+  <form id="f" autocomplete="off">
+    <fieldset>
+      <legend>Web và liên hệ</legend>
+      <label for="domain">Tên miền web <span class="hint">(gửi cho bên cài đặt để kích hoạt)</span></label>
+      <input id="domain" placeholder="vd: deal.giasock.com">
+      <label for="phone">Số điện thoại <span class="hint">(chỉ số, để bấm gọi)</span></label>
+      <input id="phone" inputmode="tel" value="0981657659">
+      <label for="phoneText">Số điện thoại hiển thị</label>
+      <input id="phoneText" value="0981 657 659">
+      <label for="zalo">Link Zalo <span class="hint">(để trống thì ẩn nút)</span></label>
+      <input id="zalo" value="https://zalo.me/0981657659">
+      <label for="facebook">Link Facebook <span class="hint">(để trống thì ẩn nút)</span></label>
+      <input id="facebook" value="https://www.facebook.com/phamkct">
+      <label for="page">Link nút chuông "Nhận deal mỗi ngày" <span class="hint">(Page hoặc nhóm; để trống thì ẩn)</span></label>
+      <input id="page" value="https://www.facebook.com/share/19pHVwmoUt/">
+      <label for="pageText">Chữ trên nút chuông</label>
+      <input id="pageText" value="Nhận deal mỗi ngày">
+    </fieldset>
+    <fieldset>
+      <legend>Câu chữ</legend>
+      <label for="banner1">Câu 1 dòng chữ chạy <span class="hint">(để trống thì bỏ)</span></label>
+      <input id="banner1" value="Hoàng Sa, Trường Sa là của Việt Nam">
+      <label for="banner2">Câu 2 dòng chữ chạy <span class="hint">(số điện thoại tự nối vào cuối)</span></label>
+      <textarea id="banner2">Mọi câu hỏi, thắc mắc về sản phẩm hay đơn hàng, quý khách vui lòng liên hệ Zalo, Facebook ở góc phải màn hình hoặc SĐT</textarea>
+      <label for="flashTip">Lời nhắc cạnh ô Flash Sale <span class="hint">(để trống thì tắt)</span></label>
+      <input id="flashTip" value="Đừng quên kiểm tra xem hôm nay có Flash Deal nào không nha! ⚡">
+      <label for="flashCard">Thẻ trượt lên khi khách bỏ qua lời nhắc <span class="hint">(để trống thì tắt)</span></label>
+      <input id="flashCard" value="Hôm nay có Flash Deal giá sốc đang chờ bạn!">
+    </fieldset>
+    <fieldset>
+      <legend>Giao diện và tính năng</legend>
+      <label for="theme">Giao diện theo mùa</label>
+      <select id="theme"><option value="noel">Giáng sinh (mũ Noel, tuyết rơi)</option><option value="tet">Tết (hoa mai, lì xì)</option><option value="">Bình thường</option></select>
+      <label>Tắt bớt tính năng <span class="hint">(tích vào phần muốn tắt)</span></label>
+      <div class="chk" id="off"></div>
+      <label class="chk" style="border:0;padding:0;margin-top:12px"><span style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="ga4" checked> Gửi số liệu bấm nút về Google Analytics</span></label>
+    </fieldset>
+  </form>
+  <aside class="side"><div class="stick">
+    <div class="sim" id="sim" aria-label="Mô phỏng">
+      <div class="tick"><span class="run" id="run"></span></div>
+      <div class="tip" id="tip"></div>
+      <div class="btns"><div class="b bell" id="sbell">🔔</div><div class="b zl" id="szl">Zalo</div><div class="b fb" id="sfb">f</div></div>
+      <div class="note">Mô phỏng đơn giản, giao diện thật đẹp hơn</div>
+    </div>
+    <div class="code">
+      <div class="bar"><span>Mã dán vào thẻ HTML tùy chỉnh</span><button type="button" id="copy">Sao chép mã</button></div>
+      <pre id="out"></pre>
+    </div>
+    <ol class="steps">
+      <li>Mở Google Tag Manager của web, chọn <b>Thẻ → Mới → HTML tùy chỉnh</b>.</li>
+      <li>Dán mã vừa sao chép, chọn trình kích hoạt <b>All Pages</b>, lưu lại.</li>
+      <li>Bấm <b>Gửi → Xuất bản</b>. Gửi tên miền web cho bên cài đặt để kích hoạt gói.</li>
+      <li>Nếu web đang có thẻ nút Zalo/Facebook cũ, tạm dừng thẻ đó để không bị trùng nút.</li>
+    </ol>
+    <p class="small">Muốn đổi số điện thoại hay câu chữ sau này: sửa trực tiếp trong khối cấu hình của thẻ, rồi xuất bản lại.</p>
+  </div></aside>
+</main>
+<script>
+{
+const FEATS=[['banner','Dòng chữ chạy'],['loc','Sắp xếp và lọc'],['yeuthich','Yêu thích'],['vuaxem','Bạn vừa xem'],['lienhe','Nút Zalo/FB'],['chuong','Nút chuông'],['flash','Lời nhắc Flash'],['chitiet','Trang chi tiết'],['quaylai','Quay lại đúng chỗ'],['toast','Báo deal mới'],['taithem','Tự tải thêm'],['the','Thẻ sản phẩm']];
+const off=document.getElementById('off');
+off.innerHTML=FEATS.map(([k,t])=>'<label><input type="checkbox" value="'+k+'"> '+t+'</label>').join('');
+const F=['domain','phone','phoneText','zalo','facebook','page','pageText','banner1','banner2','flashTip','flashCard','theme'];
+const $=id=>document.getElementById(id);
+const KEY='dgs_gen_v1';
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s){F.forEach(k=>{if(k in s)$(k).value=s[k]});$('ga4').checked=s.ga4!==false;(s.off||[]).forEach(k=>{const c=off.querySelector('input[value="'+k+'"]');if(c)c.checked=true})}}catch(e){}
+const q=v=>JSON.stringify(String(v));
+const pad=(s,n)=>s+' '.repeat(Math.max(1,n-s.length));
+function build(){
+  const v={};F.forEach(k=>v[k]=$(k).value.trim());
+  const tat=[...off.querySelectorAll('input:checked')].map(c=>c.value).join(', ');
+  const ga=$('ga4').checked;
+  const L=[['phone',v.phone.replace(/[^\d+]/g,''),'SDT de bam goi'],['phoneText',v.phoneText,'SDT hien tren dong chu chay'],['zalo',v.zalo,'nut Zalo'],['facebook',v.facebook,'nut Facebook'],['page',v.page,'nut chuong'],['pageText',v.pageText,'chu tren nut chuong'],['banner1',v.banner1,'cau 1 dong chu chay'],['banner2',v.banner2,'cau 2 (SDT tu noi vao cuoi)'],['flashTip',v.flashTip,"loi nhac canh o Flash Sale ('' de tat)"],['flashCard',v.flashCard,"the truot len ('' de tat)"],['theme',v.theme,"'noel', 'tet' hoac '' (binh thuong)"],['tat',tat,'tinh nang tat bot']];
+  const rows=L.map(([k,val,c])=>pad('  '+k+': '+q(val)+',',58)+'// '+c);
+  rows.push(pad('  ga4: '+ga,58)+'// gui su kien bam nut ve Google Analytics');
+  const code='<script>\n/* ===== GOI TRANG TRI WEB CON'+(v.domain?' — '+v.domain:'')+' | CAU HINH (chi can sua o day) ===== */\nwindow.DGS_CFG = {\n'+rows.join('\n')+'\n};\n</'+'script>\n<script>\n/* ===== TAI MA CHINH (khong can sua) ===== */\n(function(){if(window.__dgsLoad)return;window.__dgsLoad=1;var s=document.createElement(\'script\');s.src=\'https://cdn.jsdelivr.net/gh/KCT-GH-MAN/dgs-webcon@main/dgs.js\';s.async=true;document.head.appendChild(s)})();\n</'+'script>\n';
+  $('out').textContent=code;
+  // mo phong
+  const run=$('run');run.textContent='';
+  if(v.banner1){const b=document.createElement('b');b.textContent=v.banner1+' ❤️‍🔥   ·   ';run.appendChild(b)}
+  run.appendChild(document.createTextNode((v.banner2||'')+' '+(v.phoneText||v.phone)));
+  const tip=$('tip');tip.textContent=v.flashTip;tip.style.display=v.flashTip&&!tat.includes('flash')?'':'none';tip.classList.toggle('tet',v.theme==='tet');
+  $('sbell').style.display=v.page&&!tat.includes('chuong')?'':'none';
+  $('szl').style.display=v.zalo&&!tat.includes('lienhe')?'':'none';
+  $('sfb').style.display=v.facebook&&!tat.includes('lienhe')?'':'none';
+  try{const s={};F.forEach(k=>s[k]=$(k).value);s.ga4=ga;s.off=tat?tat.split(', '):[];localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}
+}
+$('f').addEventListener('input',build);$('f').addEventListener('change',build);$('f').addEventListener('submit',e=>e.preventDefault());
+$('copy').addEventListener('click',async()=>{const b=$('copy');try{await navigator.clipboard.writeText($('out').textContent);b.textContent='Đã sao chép ✓'}catch(e){const r=document.createRange();r.selectNodeContents($('out'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Đã chọn mã, nhấn Ctrl+C'}setTimeout(()=>b.textContent='Sao chép mã',2200)});
+build();
+}
+</script>
+</body>
+</html>
