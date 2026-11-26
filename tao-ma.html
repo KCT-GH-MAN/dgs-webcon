@@ -130,7 +130,7 @@ const F=['domain','phone','phoneText','zalo','facebook','page','pageText','banne
 const $=id=>document.getElementById(id);
 const KEY='dgs_gen_v1';
 try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s){F.forEach(k=>{if(k in s)$(k).value=s[k]});$('ga4').checked=s.ga4!==false;(s.off||[]).forEach(k=>{const c=off.querySelector('input[value="'+k+'"]');if(c)c.checked=true})}}catch(e){}
-const q=v=>JSON.stringify(String(v)).replace(/</g,'\\u003c').replace(/ /g,'\\u2028').replace(/ /g,'\\u2029');
+const q=v=>JSON.stringify(String(v)).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
 const pad=(s,n)=>s+' '.repeat(Math.max(1,n-s.length));
 function build(){
   const v={};F.forEach(k=>v[k]=$(k).value.trim());
