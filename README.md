@@ -37,5 +37,9 @@ Sửa `dgs.js` trong kho này rồi commit lên `main`. Sau đó xoá bộ nhớ
 | `banner1`, `banner2` | 2 câu của dòng chữ chạy |
 | `flashTip`, `flashCard` | Lời nhắc Flash Deal và thẻ trượt lên |
 | `theme` | `'noel'`, `'tet'` hoặc `''` |
-| `tat` | Tắt bớt phần: `banner, loc, yeuthich, vuaxem, lienhe, chuong, flash, chitiet, quaylai, toast, taithem, the, danhmuc` |
-| `ga4` | Gửi sự kiện bấm nút về GA4 (`dgs_contact`, `dgs_follow_page`, `dgs_share`, `dgs_favorite`, `dgs_flash_tip`, `dgs_flash_card`) |
+| `tat` | Tắt bớt phần: `banner, loc, yeuthich, vuaxem, lienhe, chuong, flash, chitiet, quaylai, toast, taithem, the, danhmuc, giagiam, muangay, hoizalo, lentop` |
+| `ga4` | Gửi sự kiện bấm nút về GA4 (`dgs_contact`, `dgs_follow_page`, `dgs_share`, `dgs_favorite`, `dgs_flash_tip`, `dgs_flash_card`, `dgs_price_drop`, `dgs_buybar`, `dgs_ask_zalo`, `dgs_to_top`) |
+
+## Ảnh trang trí
+
+Ảnh (nón lá, mũ Noel, logo Tết, viền tuyết) nằm trong thư mục `img/`, nạp theo cùng đường dẫn với `dgs.js`. Trình duyệt chỉ tải ảnh của giao diện đang bật. Đổi ảnh thì đặt tên file mới để khách không bị dính ảnh cũ trong bộ nhớ đệm.
