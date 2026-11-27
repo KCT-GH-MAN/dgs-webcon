@@ -244,11 +244,13 @@ window.__dgsOk=(function(){var h=String(location.hostname).toLowerCase().replace
   /* dien thoai: he lo o danh muc thu 3, mui ten mo, dong "Vuot xem N danh muc", truot goi y 1 lan moi phien */
   function catHint(){
     var a=document.querySelector('a[href="/flash-sale"]');if(!a)return;var row=a.parentElement,box=row&&row.parentElement;
-    if(!box||box.getAttribute('data-dgs-cat')||row.children.length<3)return;
-    box.setAttribute('data-dgs-cat','1');row.classList.add('dgs-catrow');box.classList.add('dgs-catbox');
-    box.insertAdjacentHTML('beforeend','<i class="dgs-catfade" aria-hidden="true"><b>›</b></i>');
-    var h=box.nextElementSibling&&box.nextElementSibling.classList.contains('dgs-cathint')?box.nextElementSibling:document.createElement('div');
-    h.className='dgs-cathint';h.textContent='Vuốt xem '+row.children.length+' danh mục →';if(!h.parentNode)box.insertAdjacentElement('afterend',h);
+    if(!box||row.classList.contains('dgs-catrow')||row.children.length<3)return;
+    row.classList.add('dgs-catrow');box.classList.add('dgs-catbox');
+    /* bao cho thanh truot cua CNLG tinh lai kich thuoc o (nhich khung 1px roi tra lai) */
+    box.style.width='calc(100% - 1px)';setTimeout(function(){box.style.width=''},120);
+    if(!box.querySelector('.dgs-catfade'))box.insertAdjacentHTML('beforeend','<i class="dgs-catfade" aria-hidden="true"><b>›</b></i>');
+    var h=box.nextElementSibling;if(!h||!h.classList.contains('dgs-cathint')){h=document.createElement('div');h.className='dgs-cathint';box.insertAdjacentElement('afterend',h)}
+    h.textContent='Vuốt xem '+row.children.length+' danh mục →';
     try{if(!sessionStorage.getItem('dgs_catnudge')){sessionStorage.setItem('dgs_catnudge','1');setTimeout(function(){row.classList.add('dgs-nudge');setTimeout(function(){row.classList.remove('dgs-nudge')},1500)},900)}}catch(x){}
   }
   /* mu Noel cho nut Zalo, Facebook */
