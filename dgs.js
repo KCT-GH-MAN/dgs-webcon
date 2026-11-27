@@ -286,10 +286,11 @@ window.__dgsOk=(function(){var h=String(location.hostname).toLowerCase().replace
       if(!e.target.closest('.go'))return;
       var b=buyBtn(),f=b&&b.closest('form');track('dgs_buybar',{item_id:m[1]});
       if(!b)return;
-      if(b.disabled){toast('Sản phẩm đang tạm hết hàng');return}
-      if(f&&/Vui lòng chọn phân loại/.test(f.textContent)){
-        window.scrollTo({top:Math.max(0,f.getBoundingClientRect().top+window.scrollY-150),behavior:'smooth'});
-        f.classList.remove('dgs-need');void f.offsetWidth;f.classList.add('dgs-need');toast('Bạn chọn phân loại hàng rồi bấm Mua ngay nhé');return}
+      var need=f&&/Vui lòng chọn phân loại/.test(f.textContent);
+      if(need||b.disabled){
+        if(f){window.scrollTo({top:Math.max(0,f.getBoundingClientRect().top+window.scrollY-150),behavior:'smooth'});
+          f.classList.remove('dgs-need');void f.offsetWidth;f.classList.add('dgs-need')}
+        toast(need?'Bạn chọn phân loại hàng rồi bấm Mua ngay nhé':'Bạn xem lại phân loại, số lượng bên dưới nhé',3500);return}
       b.click()});
     bar._o=go;
     if(!barIO)barIO=new IntersectionObserver(function(es){setBar(!es[es.length-1].isIntersecting)});
