@@ -259,10 +259,11 @@ window.__dgsOk=(function(){var h=String(location.hostname).toLowerCase().replace
     return 'Mình muốn hỏi về sản phẩm này:\n'+(h1?h1.textContent.replace(/^\s*Mall\s*/,'').trim():document.title)+(s?'\nGiá: '+s.textContent.trim():'')+'\n'+location.href.split('?')[0]}
   function copyTxt(t){var ok=false;try{var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
       document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);ok=document.execCommand('copy');ta.remove()}catch(x){}
-    if(!ok&&navigator.clipboard){try{navigator.clipboard.writeText(t);ok=true}catch(x){}}return ok}
+    if(!ok&&navigator.clipboard&&navigator.clipboard.writeText){try{return navigator.clipboard.writeText(t).then(function(){return true},function(){return false})}catch(x){}}return ok}
   function askZalo(e,where){var zl=cf('zalo','https://zalo.me/0981657659');if(!zl)return;e.preventDefault();
     var ok=copyTxt(prodText());track('dgs_ask_zalo',{where:where,item_id:(location.pathname.match(/_p(\d+)/)||[])[1]||''});
-    toast(ok?'Đã chép tên và link sản phẩm ✓ Dán vào ô chat Zalo để hỏi nhé':'Đang mở Zalo…',5000);
+    var say=function(v){toast(v?'Đã chép tên và link sản phẩm ✓ Dán vào ô chat Zalo để hỏi nhé':'Đang mở Zalo… bạn gửi tên sản phẩm cần hỏi nhé',5000)};
+    if(ok&&ok.then)ok.then(say);else say(ok);
     setTimeout(function(){var w=window.open(zl,'_blank');if(w){try{w.opener=null}catch(x){}}else location.href=zl},700)}
   /* ===== thanh Mua ngay dinh day man hinh (dien thoai, trang chi tiet) ===== */
   var barIO=null;
