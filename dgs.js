@@ -73,8 +73,9 @@ window.__dgsOk=(function(){var h=String(location.hostname).toLowerCase().replace
   function info(c){var a=c.querySelector('a[href*="_p"]'),t=c.querySelector('.line-clamp-3'),im=c.querySelector('a > .relative img'),p=c.querySelector('.text-lg.text-red-500');
     return {id:c.dataset.pid,href:a?a.getAttribute('href'):'',t:t?t.textContent.trim():'',img:im?im.getAttribute('src'):'',p:p?p.textContent.trim():'',p0:p?num(p.textContent):0,pn:p?num(p.textContent):0,pt:Date.now()}}
   function isFav(id){return !!fav(id)}
+  var NOIMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fff7ed'/%3E%3Cg fill='none' stroke='%23fdba74' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M46 25l-14-8-14 8 14 8 14-8zM18 25v14l14 8 14-8V25M32 33v14'/%3E%3C/g%3E%3C/svg%3E";
   function imgFix(u){return String(u||'').replace(/:\/\/r6s\.pen\./,'://r6i.pen.')}
-  function imgSafe(box){[].forEach.call(box.querySelectorAll('img'),function(i){i.addEventListener('error',function(){i.removeAttribute('src');i.classList.add('dgs-noimg')},{once:true})})}
+  function imgSafe(box){[].forEach.call(box.querySelectorAll('img'),function(i){i.addEventListener('error',function(){i.src=NOIMG;i.classList.add('dgs-noimg')},{once:true})})}
   function toggleFav(c,btn){var l=lsGet('dgs_fav'),id=c.dataset.pid,i=-1;l.forEach(function(x,k){if(x.id==id)i=k});
     if(i<0){btn.classList.remove('pop');void btn.offsetWidth;btn.classList.add('pop')}
       if(i>=0){l.splice(i,1);btn.classList.remove('on');toast('Đã bỏ khỏi Yêu thích');var dd=c.querySelector('.dgs-drop');if(dd)dd.remove()}else{l.unshift(info(c));l=l.slice(0,60);btn.classList.add('on');toast('Đã lưu vào Yêu thích ♥')}
