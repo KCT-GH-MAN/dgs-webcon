@@ -37,7 +37,7 @@ Sửa `dgs.js` trong kho này rồi commit lên `main`. Sau đó xoá bộ nhớ
 | `banner1`, `banner2` | 2 câu của dòng chữ chạy |
 | `flashTip`, `flashCard` | Lời nhắc Flash Deal và thẻ trượt lên |
 | `theme` | `'noel'`, `'tet'` hoặc `''` |
-| `tat` | Tắt bớt phần: `banner, loc, yeuthich, vuaxem, lienhe, chuong, flash, chitiet, quaylai, toast, taithem, the, danhmuc, giagiam, muangay, hoizalo, lentop` |
+| `tat` | Tắt bớt phần: `banner, loc, yeuthich, vuaxem, lienhe, chuong, flash, chitiet, quaylai, toast, taithem, the, danhmuc, giagiam, muangay, hoizalo, lentop, anhbia` |
 | `ga4` | Gửi sự kiện bấm nút về GA4 (`dgs_contact`, `dgs_follow_page`, `dgs_share`, `dgs_favorite`, `dgs_flash_tip`, `dgs_flash_card`, `dgs_price_drop`, `dgs_buybar`, `dgs_ask_zalo`, `dgs_to_top`, `dgs_cat_arrow`) |
 
 ## Ảnh trang trí
